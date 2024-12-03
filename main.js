@@ -30,6 +30,20 @@
 // }
 
 document.addEventListener('DOMContentLoaded', function() {
+    const numbersList = document.querySelector('.numbers');
+    const rotationDegree = 360 / 12; // 30 stepeni
+
+    for (let i = 1; i <= 12; i++) {
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        const rotation = (i ) * rotationDegree; // Izračunava rotaciju za svaku cifru
+        li.style.transform = `translate(-0%, -00%) rotate(${rotation}deg)`;  // Primena transformacije
+        span.textContent = i; // Dodavanje broja
+        span.style.transform = `translate(-0%, -00%) rotate(-${rotation}deg)`;  // Primena transformacije
+        span.style.display = 'inline-block'
+        li.appendChild(span); // Dodavanje span elementa u li
+        numbersList.appendChild(li); // Dodavanje li elementa u ul
+    }
     setInterval(updateClock, 1000);
 });
 
