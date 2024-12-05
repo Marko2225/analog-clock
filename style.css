@@ -5,6 +5,7 @@ body {
 
 #container {
     height: 100vh;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,16 +20,17 @@ body {
     box-shadow: 0 5px 50px 5px rgba(0, 0, 0, 0.9);
     display: grid;
     place-content: center;
-   
+
 }
+
 #clock::before {
     content: '';
     position: absolute;
     width: 25px;
     height: 25px;
     background: white;
-    border-radius: 50%;
-    top: 53%;
+    border-radius: 51%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 5000;
@@ -42,16 +44,16 @@ body {
 .minute {
     width: 5px;
     height: 125px;
-    top: 62px;
+    top: 52px;
     left: calc(50% - 2.5px);
     border-radius: 50%;
     background: deepskyblue;
 }
 
 .second {
-    width: 2px;
+    width: 3px;
     height: 125px;
-    top: 61px;
+    top: 52px;
     left: calc(50% - 1px);
     background: #fff;
     border-radius: 50%;
@@ -60,7 +62,7 @@ body {
 .hour {
     width: 5px;
     height: 87.5px;
-    top: 100.5px;
+    top: 90.5px;
     left: calc(50% - 2.5px);
     background: deepskyblue;
     border-radius: 50%;
@@ -78,30 +80,28 @@ body {
 }
 
 .numbers li {
-   position: absolute;
-   inset:6px;
-       /* transform: rotate(-30deg) ; */
+    position: absolute;
+    inset: 6px;
+    /* transform: rotate(-30deg) ; */
+
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    /* line-height: 20px;  */
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    font-weight: 800;
 }
 
 /* Definiranje CSS varijablama za rotaciju */
 :root {
     --rotation-degree: calc(360deg / 12);
 }
-.numbers li {
-    /* transform: translate(-50%, -50%) rotate(0deg) translateY(-120px); /*Pomerite ih dalje od centra */
-}
-/* Rotacija brojeva */
-.numbers li:nth-child(n) { transform:  rotate(n * var(--rotation-degree));
-
-} /* 12 */
-/* .numbers li:nth-child(2) { transform: translate(-50%, -100%) rotate(1 * var(--rotation-degree)); } 1 */
-/* .numbers li:nth-child(3) { transform: translate(-50%, -100%) rotate(2 * var(--rotation-degree)); } 2 */
-/* .numbers li:nth-child(4) { transform: translate(-50%, -100%) rotate(3 * var(--rotation-degree)); } 3 */
-/* .numbers li:nth-child(5) { transform: translate(-50%, -100%) rotate(4 * var(--rotation-degree)); } 4 */
-/* .numbers li:nth-child(6) { transform: translate(-50%, -100%) rotate(5 * var(--rotation-degree)); } 5 */
-/* .numbers li:nth-child(7) { transform: translate(-50%, -100%) rotate(6 * var(--rotation-degree)); } 6 */
-/* .numbers li:nth-child(8) { transform: translate(-50%, -100%) rotate(7 * var(--rotation-degree)); } 7 */
-/* .numbers li:nth-child(9) { transform: translate(-50%, -100%) rotate(8 * var(--rotation-degree)); } 8 */
-/* .numbers li:nth-child(10) { transform: translate(-50%, -100%) rotate(9 * var(--rotation-degree)); } 9 */
-/* .numbers li:nth-child(11) { transform: translate(-50%, -100%) rotate(10 * var(--rotation-degree)); } 10 */
-/* .numbers li:nth-child(12) { transform: translate(-50%, -100%) rotate(11 * var(--rotation-degree)); } 11 */
