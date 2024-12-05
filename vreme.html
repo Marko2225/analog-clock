@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #b7d6f5;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #bbceb9af;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #loading {
+            display: none;
+            font-size: 16px;
+            color: #007bff;
+        }
+        .weather-icon {
+            width: 100px; /* Adjust size as needed */
+            height: auto;
+        }
+        .weather-container {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+    }
+    .weather-icon {
+        width: 100px; /* Adjust size as needed */
+        height: auto;
+        margin-right: 10px; /* Space between icon and temperature */
+    }
+    .temperature {
+        font-size: 24px; /* Adjust font size as needed */
+        font-weight: bold; /* Bold text */
+        color: #ff4500; /* Change color for emphasis */
+        background-color: #f9f9f9; /* Light background color */
+        padding: 5px; /* Some padding around the temperature */
+        border-radius: 5px; /* Rounded corners */
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <p>Enter a city name to get the weather:</p>
+        <input type="text" id="cityInput" placeholder="Enter city name" aria-label="City input">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="loading">Loading...</div>
+        <div id="weatherInfo"></div>
+    </div>
+    <script>
+        document.getElementById("cityInput").addEventListener("input", function() {
+            localStorage.setItem("cityInput", this.value);
+        });
+
+        window.onload = function() {
+            if (localStorage.getItem("cityInput")) {
+                document.getElementById("cityInput").value = localStorage.getItem("cityInput");
+            }
+        };
+
+        function getWeather() {
+            const city = document.getElementById("cityInput").value.trim();
+            const apiKey = "0fb98056d14c0b3b443c610b4ebe30e9";
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+            const weatherInfo = document.getElementById("weatherInfo");
+            const loading = document.getElementById("loading");
+
+            weatherInfo.innerHTML = "";
+            loading.style.display = "none";
+
+            if (!city) {
+                weatherInfo.innerHTML = "<p>Please enter a city name.</p>";
+                return;
+            }
+
+            loading.style.display = "block";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    loading.style.display = "none";
+                    if (data.cod !== 200) {
+                        weatherInfo.innerHTML = `<p>Error: ${data.message}</p>`;
+                        return;
+                    }
+
+                    const weatherIcon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+                    weatherInfo.innerHTML = `
+                       <h2>${data.name}</h2>
+    <div class="weather-container">
+        <img src="${weatherIcon}" alt="${data.weather[0].description}" class="weather-icon">
+        <p class="temperature">${data.main.temp}°C</p>
+    </div>
+    <p>${data.weather[0].description}</p>
+    <p>Humidity: ${data.main.humidity}%</p>
+                    `;
+                })
+                .catch(error => {
+                    loading.style.display = "none";
+                    console.error('Error fetching weather data:', error);
+                    weatherInfo.innerHTML = "<p>Failed to fetch data. Please try again later.</p>";
+                });
+        }
+    </script>
+</body>
+</html>
